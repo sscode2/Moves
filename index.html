@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineVerse | Your Movie Destination</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS Variables for Theme */
+        :root {
+            --primary-color: #e50914;
+            --secondary-color: #141414;
+            --text-color: #ffffff;
+            --text-secondary: #b3b3b3;
+            --bg-color: #0f0f0f;
+            --card-bg: #1a1a1a;
+            --border-color: #333333;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            --transition: all 0.3s ease;
+        }
+
+        [data-theme="light"] {
+            --primary-color: #e50914;
+            --secondary-color: #f5f5f5;
+            --text-color: #333333;
+            --text-secondary: #666666;
+            --bg-color: #ffffff;
+            --card-bg: #f9f9f9;
+            --border-color: #e0e0e0;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: var(--transition);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            outline: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--secondary-color);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .logo span {
+            color: var(--text-color);
+        }
+
+        nav ul {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--primary-color);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .search-bar {
+            display: flex;
+            background: var(--card-bg);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .search-bar input {
+            background: transparent;
+            border: none;
+            padding: 0.5rem 1rem;
+            color: var(--text-color);
+            width: 200px;
+        }
+
+        .search-bar button {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+        }
+
+        .theme-toggle {
+            background: transparent;
+            color: var(--text-color);
+            font-size: 1.2rem;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            background: var(--card-bg);
+        }
+
+        .hamburger {
+            display: none;
+            background: transparent;
+            color: var(--text-color);
+            font-size: 1.5rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 70vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1535016120720-40c646be5580?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: var(--text-secondary);
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .btn:hover {
+            background: #b8070f;
+            transform: translateY(-3px);
+        }
+
+        /* Categories Section */
+        .categories {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--primary-color);
+        }
+
+        .categories-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .category {
+            background: var(--card-bg);
+            padding: 0.7rem 1.5rem;
+            border-radius: 30px;
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+        }
+
+        .category:hover, .category.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* Blog Posts Grid */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .blog-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .blog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .blog-card:hover .card-image img {
+            transform: scale(1.1);
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .card-category {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+
+        .card-excerpt {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .rating {
+            color: #ffc107;
+        }
+
+        .read-more {
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--secondary-color);
+            padding: 3rem 0 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-col h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--primary-color);
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: var(--card-bg);
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Blog Post Page */
+        .post-header {
+            padding: 3rem 0;
+            text-align: center;
+            background: var(--card-bg);
+            margin-bottom: 3rem;
+        }
+
+        .post-meta {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .post-content {
+            max-width: 800px;
+            margin: 0 auto 3rem;
+        }
+
+        .post-image {
+            height: 400px;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .post-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .post-text {
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .movie-details {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .movie-details h3 {
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .detail-item strong {
+            color: var(--primary-color);
+        }
+
+        .trailer-section {
+            margin-bottom: 2rem;
+        }
+
+        .trailer-placeholder {
+            background: var(--card-bg);
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .comments-section {
+            margin-bottom: 3rem;
+        }
+
+        .comment-form {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            color: var(--text-color);
+        }
+
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .comments-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .comment {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .comment-author {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .comment-date {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .related-posts {
+            margin-bottom: 3rem;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-actions .search-bar {
+                display: none;
+            }
+            
+            nav {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 80%;
+                height: calc(100vh - 70px);
+                background: var(--secondary-color);
+                transition: var(--transition);
+                z-index: 999;
+                padding: 2rem;
+                box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+            }
+            
+            nav.active {
+                left: 0;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .blog-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero {
+                height: 60vh;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .categories-list {
+                justify-content: center;
+            }
+            
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Utility Classes */
+        .hidden {
+            display: none;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mb-3 {
+            margin-bottom: 1.5rem;
+        }
+
+        .mt-3 {
+            margin-top: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">Cine<span>Verse</span></a>
+            
+            <nav id="main-nav">
+                <ul>
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="#movies">Movies</a></li>
+                    <li><a href="#categories">Categories</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            
+            <div class="header-actions">
+                <div class="search-bar">
+                    <input type="text" placeholder="Search movies...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+                <button class="theme-toggle" id="theme-toggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="hamburger" id="hamburger">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h1>Discover the Magic of Cinema</h1>
+            <p>Your ultimate destination for movie reviews, news, and recommendations</p>
+            <a href="#movies" class="btn">Explore Movies</a>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Categories Section -->
+        <section class="categories">
+            <h2 class="section-title">Browse Categories</h2>
+            <div class="categories-list">
+                <button class="category active" data-category="all">All</button>
+                <button class="category" data-category="Action">Action</button>
+                <button class="category" data-category="Drama">Drama</button>
+                <button class="category" data-category="Sci-Fi">Sci-Fi</button>
+                <button class="category" data-category="Horror">Horror</button>
+                <button class="category" data-category="Comedy">Comedy</button>
+            </div>
+        </section>
+
+        <!-- Blog Posts Grid -->
+        <section id="movies">
+            <h2 class="section-title">Latest Reviews</h2>
+            <div class="blog-grid" id="blog-grid">
+                <!-- Blog posts will be dynamically inserted here -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>CineVerse</h3>
+                    <p>Your ultimate destination for movie reviews, news, and recommendations. Discover the magic of cinema with us.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="#movies">Movies</a></li>
+                        <li><a href="#categories">Categories</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Categories</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" data-category="Action">Action</a></li>
+                        <li><a href="#" data-category="Drama">Drama</a></li>
+                        <li><a href="#" data-category="Sci-Fi">Sci-Fi</a></li>
+                        <li><a href="#" data-category="Horror">Horror</a></li>
+                        <li><a href="#" data-category="Comedy">Comedy</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to our newsletter for the latest movie reviews and news.</p>
+                    <div class="search-bar mt-3">
+                        <input type="email" placeholder="Your email">
+                        <button><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 CineVerse. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Blog Post Template (Hidden) -->
+    <div id="blog-post-template" class="hidden">
+        <!-- This will be shown when a blog post is clicked -->
+    </div>
+
+    <script>
+        // Movie Data (JSON)
+        const blogPosts = [
+            {
+                id: 1,
+                title: "Oppenheimer",
+                image: "https://images.unsplash.com/photo-1635805737707-575885ab0820?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80",
+                category: "Drama",
+                author: "Admin",
+                date: "2023-09-25",
+                description: "Christopher Nolan's Oppenheimer is a masterpiece blending history and science...",
+                fullText: "Christopher Nolan's 'Oppenheimer' is a cinematic tour de force that delves into the complex life of J. Robert Oppenheimer, the theoretical physicist who led the Manhattan Project during World War II. The film masterfully explores the moral dilemmas faced by scientists who contributed to creating the atomic bomb.\n\nCillian Murphy delivers a career-defining performance as Oppenheimer, capturing both his brilliance and inner turmoil. The supporting cast, including Robert Downey Jr. as Lewis Strauss, is equally impressive. Nolan's signature non-linear storytelling keeps viewers engaged as the narrative shifts between different timelines.\n\nThe film's technical achievements are remarkable, from Hoyte van Hoytema's stunning cinematography to Ludwig Göransson's haunting score. 'Oppenheimer' is not just a biopic; it's a profound meditation on scientific responsibility, political intrigue, and the consequences of human ambition.",
+                rating: 4.8,
+                director: "Christopher Nolan",
+                cast: "Cillian Murphy, Emily Blunt, Matt Damon, Robert Downey Jr.",
+                trailer: "https://www.youtube.com/embed/uYPbbksJxIg"
+            },
+            {
+                id: 2,
+                title: "Avengers: Endgame",
+                image: "https://images.unsplash.com/photo-1635805737707-575885ab0820?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80",
+                category: "Action",
+                author: "Admin",
+                date: "2023-09-20",
+                description: "Marvel's Avengers: Endgame delivers an emotional, action-packed finale...",
+                fullText: "Avengers: Endgame serves as the epic conclusion to over a decade of storytelling in the Marvel Cinematic Universe. Directors Anthony and Joe Russo masterfully balance emotional character moments with spectacular action sequences, creating a satisfying finale that pays off years of buildup.\n\nThe film picks up after the devastating events of Infinity War, with the remaining Avengers struggling to cope with their loss. The time heist concept allows for nostalgic callbacks to earlier MCU films while moving the story forward. Each character gets their moment to shine, particularly Robert Downey Jr.'s Iron Man and Chris Evans' Captain America.\n\nEndgame's final battle is arguably one of the greatest in cinematic history, bringing together dozens of characters in an epic showdown against Thanos. The emotional weight of the sacrifices made, especially Tony Stark's, resonates deeply. This film is not just a superhero movie; it's a cultural event that celebrates the power of storytelling and character development over multiple films.",
+                rating: 4.9,
+                director: "Anthony Russo, Joe Russo",
+                cast: "Robert Downey Jr., Chris Evans, Mark Ruffalo, Chris Hemsworth",
+                trailer: "https://www.youtube.com/embed/TcMBFSGVi1c"
+            },
+            {
+                id: 3,
+                title: "Inception",
+                image: "https://images.unsplash.com/photo-1635805737707-575885ab0820?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80",
+                category: "Sci-Fi",
+                author: "Admin",
+                date: "2023-09-15",
+                description: "Christopher Nolan's mind-bending thriller explores the world of dreams...",
+                fullText: "Christopher Nolan's 'Inception' is a groundbreaking science fiction film that explores the architecture of dreams and the nature of reality. The film follows Dom Cobb (Leonardo DiCaprio), a skilled thief who specializes in extracting secrets from people's subconscious during dream states.\n\nThe concept of shared dreaming and the rules governing the dream world are meticulously crafted, creating a complex but coherent narrative. The visual effects are stunning, particularly the scenes where Paris folds in on itself and the zero-gravity fight sequence in a rotating hallway.\n\nHans Zimmer's score is iconic, with the 'BRAAAM' sound becoming instantly recognizable. The ensemble cast, including Joseph Gordon-Levitt, Ellen Page, and Tom Hardy, delivers strong performances across the board. 'Inception' challenges viewers to question what is real and what is dream, leaving them with one of cinema's most debated endings.",
+                rating: 4.7,
+                director: "Christopher Nolan",
+                cast: "Leonardo DiCaprio, Joseph Gordon-Levitt, Ellen Page, Tom Hardy",
+                trailer: "https://www.youtube.com/embed/YoHD9XEInc0"
+            },
+            {
+                id: 4,
+                title: "The Shawshank Redemption",
+                image: "https://images.unsplash.com/photo-1635805737707-575885ab0820?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80",
+                category: "Drama",
+                author: "Admin",
+                date: "2023-09-10",
+                description: "A timeless classic about hope and friendship in the face of adversity...",
+                fullText: "Frank Darabont's adaptation of Stephen King's novella 'Rita Hayworth and Shawshank Redemption' has rightfully earned its place as one of the greatest films ever made. The story follows Andy Dufresne (Tim Robbins), a banker sentenced to life in Shawshank State Penitentiary for a crime he didn't commit.\n\nThrough his friendship with Ellis 'Red' Redding (Morgan Freeman), Andy maintains his dignity and hope in the face of institutional brutality. The film explores themes of friendship, resilience, and the indomitable human spirit. Roger Deakins' cinematography captures the grim reality of prison life while finding moments of beauty.\n\nThe film's climax, revealing Andy's meticulous escape plan, is one of cinema's most satisfying moments. 'The Shawshank Redemption' reminds us that 'hope is a good thing, maybe the best of things, and no good thing ever dies.' It's a testament to the power of storytelling that continues to resonate with audiences decades after its release.",
+                rating: 4.9,
+                director: "Frank Darabont",
+                cast: "Tim Robbins, Morgan Freeman, Bob Gunton, James Whitmore",
+                trailer: "https://www.youtube.com/embed/6hB3S9bIaco"
+            },
+            {
+                id: 5,
+                title: "Get Out",
+                image: "https://images.unsplash.com/photo-1635805737707-575885ab0820?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80",
+                category: "Horror",
+                author: "Admin",
+                date: "2023-09-05",
+                description: "Jordan Peele's groundbreaking horror film tackles racism with chilling precision...",
+                fullText: "Jordan Peele's directorial debut 'Get Out' redefined the horror genre by blending social commentary with genuine scares. The film follows Chris Washington (Daniel Kaluuya), a Black man who uncovers a disturbing secret when visiting the family of his white girlfriend.\n\nPeele masterfully uses horror tropes to explore contemporary racism and microaggressions. The 'sunken place' becomes a powerful metaphor for the silencing of Black voices. The film balances tension with moments of humor, particularly through the character of Rod (Lil Rel Howery), who provides much-needed comic relief.\n\nDaniel Kaluuya delivers a phenomenal performance, conveying fear, confusion, and resilience with subtle facial expressions. The twist revelation about the Armitage family's sinister intentions is both shocking and thematically rich. 'Get Out' is not just a great horror film; it's an important cultural commentary that sparked conversations about race relations in America.",
+                rating: 4.6,
+                director: "Jordan Peele",
+                cast: "Daniel Kaluuya, Allison Williams, Bradley Whitford, Catherine Keener",
+                trailer: "https://www.youtube.com/embed/DzfpyUB60YY"
+            },
+            {
+                id: 6,
+                title: "Superbad",
+                image: "https://images.unsplash.com/photo-1635805737707-575885ab0820?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80",
+                category: "Comedy",
+                author: "Admin",
+                date: "2023-08-30",
+                description: "A hilarious coming-of-age comedy about friendship and high school life...",
+                fullText: "Greg Mottola's 'Superbad' has earned its status as a modern comedy classic, capturing the awkwardness and anxiety of teenage life with hilarious authenticity. The film follows best friends Seth (Jonah Hill) and Evan (Michael Cera) as they navigate one epic night in an attempt to lose their virginity before heading off to college.\n\nThe chemistry between Hill and Cera is electric, with their banter feeling genuinely adolescent. Christopher Mintz-Plasse steals scenes as Fogell, whose fake ID introduces him as 'McLovin'. The script, written by Seth Rogen and Evan Goldberg, is filled with quotable lines and relatable situations.\n\nBeyond the raunchy humor, 'Superbad' has a surprising amount of heart, exploring the bittersweet nature of friendships changing as people grow up. The film's depiction of teenage insecurity and the pressure to conform resonates with audiences of all ages. It's a celebration of friendship that remains hilarious and heartfelt years after its release.",
+                rating: 4.4,
+                director: "Greg Mottola",
+                cast: "Jonah Hill, Michael Cera, Christopher Mintz-Plasse, Bill Hader",
+                trailer: "https://www.youtube.com/embed/MNpoTxeydiY"
+            }
+        ];
+
+        // DOM Elements
+        const blogGrid = document.getElementById('blog-grid');
+        const categories = document.querySelectorAll('.category');
+        const searchInput = document.querySelector('.search-bar input');
+        const searchButton = document.querySelector('.search-bar button');
+        const themeToggle = document.getElementById('theme-toggle');
+        const hamburger = document.getElementById('hamburger');
+        const nav = document.getElementById('main-nav');
+
+        // Initialize the website
+        document.addEventListener('DOMContentLoaded', function() {
+            renderBlogPosts(blogPosts);
+            setupEventListeners();
+            loadThemePreference();
+            loadComments();
+        });
+
+        // Render blog posts to the grid
+        function renderBlogPosts(posts) {
+            blogGrid.innerHTML = '';
+            
+            posts.forEach(post => {
+                const blogCard = document.createElement('div');
+                blogCard.className = 'blog-card';
+                blogCard.innerHTML = `
+                    <div class="card-image">
+                        <img src="${post.image}" alt="${post.title}">
+                    </div>
+                    <div class="card-content">
+                        <div class="card-meta">
+                            <span class="card-category">${post.category}</span>
+                            <span>${formatDate(post.date)}</span>
+                        </div>
+                        <h3 class="card-title">${post.title}</h3>
+                        <p class="card-excerpt">${post.description}</p>
+                        <div class="card-footer">
+                            <div class="rating">
+                                ${generateStarRating(post.rating)}
+                            </div>
+                            <a href="#" class="read-more" data-id="${post.id}">
+                                Read More <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                `;
+                blogGrid.appendChild(blogCard);
+            });
+            
+            // Add event listeners to "Read More" buttons
+            document.querySelectorAll('.read-more').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const postId = parseInt(this.getAttribute('data-id'));
+                    showBlogPost(postId);
+                });
+            });
+        }
+
+        // Format date as "Month Day, Year"
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString(undefined, options);
+        }
+
+        // Generate star rating HTML
+        function generateStarRating(rating) {
+            const fullStars = Math.floor(rating);
+            const halfStar = rating % 1 >= 0.5;
+            const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
+            
+            let starsHTML = '';
+            
+            for (let i = 0; i < fullStars; i++) {
+                starsHTML += '<i class="fas fa-star"></i>';
+            }
+            
+            if (halfStar) {
+                starsHTML += '<i class="fas fa-star-half-alt"></i>';
+            }
+            
+            for (let i = 0; i < emptyStars; i++) {
+                starsHTML += '<i class="far fa-star"></i>';
+            }
+            
+            return starsHTML + ` <span>${rating}</span>`;
+        }
+
+        // Show individual blog post
+        function showBlogPost(postId) {
+            const post = blogPosts.find(p => p.id === postId);
+            if (!post) return;
+            
+            // Hide main content
+            document.querySelector('main').style.display = 'none';
+            document.querySelector('.hero').style.display = 'none';
+            
+            // Create blog post content
+            const blogPostHTML = `
+                <section class="post-header">
+                    <div class="container">
+                        <h1>${post.title}</h1>
+                        <div class="post-meta">
+                            <span>By ${post.author}</span>
+                            <span>${formatDate(post.date)}</span>
+                            <span>${post.category}</span>
+                        </div>
+                        <div class="rating">
+                            ${generateStarRating(post.rating)}
+                        </div>
+                    </div>
+                </section>
+                
+                <div class="container">
+                    <div class="post-content">
+                        <div class="post-image">
+                            <img src="${post.image}" alt="${post.title}">
+                        </div>
+                        
+                        <div class="post-text">
+                            ${post.fullText.split('\n\n').map(paragraph => `<p>${paragraph}</p>`).join('')}
+                        </div>
+                        
+                        <div class="movie-details">
+                            <h3>Movie Details</h3>
+                            <div class="details-grid">
+                                <div class="detail-item">
+                                    <strong>Director:</strong> ${post.director}
+                                </div>
+                                <div class="detail-item">
+                                    <strong>Cast:</strong> ${post.cast}
+                                </div>
+                                <div class="detail-item">
+                                    <strong>Rating:</strong> ${post.rating}/5
+                                </div>
+                                <div class="detail-item">
+                                    <strong>Category:</strong> ${post.category}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="trailer-section">
+                            <h3>Trailer</h3>
+                            <div class="trailer-placeholder">
+                                <p>Trailer would be embedded here: ${post.trailer}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="comments-section">
+                            <h3>Comments</h3>
+                            <div class="comment-form">
+                                <h4>Add a Comment</h4>
+                                <form id="comment-form">
+                                    <div class="form-group">
+                                        <label for="comment-name">Name</label>
+                                        <input type="text" id="comment-name" class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="comment-text">Comment</label>
+                                        <textarea id="comment-text" class="form-control" required></textarea>
+                                    </div>
+                                    <button type="submit" class="btn">Submit Comment</button>
+                                </form>
+                            </div>
+                            
+                            <div class="comments-list" id="comments-list-${post.id}">
+                                <!-- Comments will be loaded here -->
+                            </div>
+                        </div>
+                        
+                        <div class="related-posts">
+                            <h3>Related Movies</h3>
+                            <div class="blog-grid">
+                                ${generateRelatedPosts(post.id, post.category)}
+                            </div>
+                        </div>
+                        
+                        <div class="text-center mt-3">
+                            <button id="back-to-home" class="btn">
+                                <i class="fas fa-arrow-left"></i> Back to Home
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Insert blog post content
+            const blogPostTemplate = document.getElementById('blog-post-template');
+            blogPostTemplate.innerHTML = blogPostHTML;
+            blogPostTemplate.classList.remove('hidden');
+            
+            // Load comments for this post
+            loadCommentsForPost(post.id);
+            
+            // Set up event listeners for the blog post page
+            document.getElementById('comment-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                addComment(post.id);
+            });
+            
+            document.getElementById('back-to-home').addEventListener('click', function() {
+                // Show main content again
+                document.querySelector('main').style.display = 'block';
+                document.querySelector('.hero').style.display = 'flex';
+                blogPostTemplate.classList.add('hidden');
+            });
+        }
+
+        // Generate related posts
+        function generateRelatedPosts(currentPostId, category) {
+            const relatedPosts = blogPosts
+                .filter(post => post.id !== currentPostId && post.category === category)
+                .slice(0, 3);
+            
+            if (relatedPosts.length === 0) {
+                return '<p>No related posts found.</p>';
+            }
+            
+            return relatedPosts.map(post => `
+                <div class="blog-card">
+                    <div class="card-image">
+                        <img src="${post.image}" alt="${post.title}">
+                    </div>
+                    <div class="card-content">
+                        <div class="card-meta">
+                            <span class="card-category">${post.category}</span>
+                            <span>${formatDate(post.date)}</span>
+                        </div>
+                        <h3 class="card-title">${post.title}</h3>
+                        <p class="card-excerpt">${post.description}</p>
+                        <div class="card-footer">
+                            <div class="rating">
+                                ${generateStarRating(post.rating)}
+                            </div>
+                            <a href="#" class="read-more" data-id="${post.id}">
+                                Read More <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Category filtering
+        function filterByCategory(category) {
+            if (category === 'all') {
+                renderBlogPosts(blogPosts);
+            } else {
+                const filteredPosts = blogPosts.filter(post => post.category === category);
+                renderBlogPosts(filteredPosts);
+            }
+        }
+
+        // Search functionality
+        function searchMovies(query) {
+            const filteredPosts = blogPosts.filter(post => 
+                post.title.toLowerCase().includes(query.toLowerCase()) ||
+                post.description.toLowerCase().includes(query.toLowerCase()) ||
+                post.category.toLowerCase().includes(query.toLowerCase())
+            );
+            renderBlogPosts(filteredPosts);
+        }
+
+        // Comments functionality
+        function addComment(postId) {
+            const nameInput = document.getElementById('comment-name');
+            const textInput = document.getElementById('comment-text');
+            
+            const name = nameInput.value.trim();
+            const text = textInput.value.trim();
+            
+            if (!name || !text) return;
+            
+            const comment = {
+                id: Date.now(),
+                postId: postId,
+                name: name,
+                text: text,
+                date: new Date().toISOString()
+            };
+            
+            // Save to localStorage
+            let comments = JSON.parse(localStorage.getItem(`comments_${postId}`)) || [];
+            comments.push(comment);
+            localStorage.setItem(`comments_${postId}`, JSON.stringify(comments));
+            
+            // Clear form
+            nameInput.value = '';
+            textInput.value = '';
+            
+            // Reload comments
+            loadCommentsForPost(postId);
+        }
+
+        function loadCommentsForPost(postId) {
+            const commentsList = document.getElementById(`comments-list-${postId}`);
+            if (!commentsList) return;
+            
+            const comments = JSON.parse(localStorage.getItem(`comments_${postId}`)) || [];
+            
+            if (comments.length === 0) {
+                commentsList.innerHTML = '<p>No comments yet. Be the first to comment!</p>';
+                return;
+            }
+            
+            commentsList.innerHTML = comments.map(comment => `
+                <div class="comment">
+                    <div class="comment-header">
+                        <span class="comment-author">${comment.name}</span>
+                        <span class="comment-date">${formatDate(comment.date)}</span>
+                    </div>
+                    <p>${comment.text}</p>
+                </div>
+            `).join('');
+        }
+
+        function loadComments() {
+            // This would load comments for all posts if needed
+            // Currently, comments are loaded per post when the post is viewed
+        }
+
+        // Theme functionality
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            
+            // Update icon
+            const icon = themeToggle.querySelector('i');
+            icon.className = newTheme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+        }
+
+        function loadThemePreference() {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            
+            // Update icon
+            const icon = themeToggle.querySelector('i');
+            icon.className = savedTheme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Category filtering
+            categories.forEach(category => {
+                category.addEventListener('click', function() {
+                    categories.forEach(c => c.classList.remove('active'));
+                    this.classList.add('active');
+                    filterByCategory(this.getAttribute('data-category'));
+                });
+            });
+            
+            // Search functionality
+            searchButton.addEventListener('click', function() {
+                searchMovies(searchInput.value);
+            });
+            
+            searchInput.addEventListener('keyup', function(e) {
+                if (e.key === 'Enter') {
+                    searchMovies(searchInput.value);
+                }
+            });
+            
+            // Theme toggle
+            themeToggle.addEventListener('click', toggleTheme);
+            
+            // Mobile menu toggle
+            hamburger.addEventListener('click', function() {
+                nav.classList.toggle('active');
+            });
+            
+            // Close mobile menu when clicking on a link
+            document.querySelectorAll('nav a').forEach(link => {
+                link.addEventListener('click', function() {
+                    nav.classList.remove('active');
+                });
+            });
+        }
+    </script>
+</body>
+</html>
